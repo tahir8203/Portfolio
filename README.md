@@ -23,6 +23,11 @@ Personal portfolio of **Muhammad Tahir Mehmood**, Full Stack Developer and AI En
 - Fiverr: https://www.fiverr.com/tahir8203
 - GitHub: https://github.com/tahir8203
 
+## Deploy on Vercel
+
+1. Sign in at [vercel.com](https://vercel.com) with GitHub → **Add New → Project** → import this repository.
+2. Framework preset: **Other**. Leave Build Command empty and Output Directory as the root, then click **Deploy**.
+
 ## Run locally
 
 This is a static site with no build step. Open `index.html` in a browser, or serve the folder:
