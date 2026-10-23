@@ -188,7 +188,7 @@ export const govPlatforms = [
 export const leadership = [
   {
     title: "Planning & Development",
-    text: "As Assistant Director (Planning & Development) at the Office of the Chief Executive Officer, District Education Authority Okara — supporting planning, data and reporting for schools across the district.",
+    text: "As Assistant Director (Planning & Development, additional charge) at the Office of the Chief Executive Officer, District Education Authority Okara — supporting planning, data and reporting for schools across the district.",
   },
   {
     title: "District reporting automation",
@@ -231,16 +231,16 @@ export type TimelineItem = { period: string; role: string; org: string; text: st
 
 export const timeline: TimelineItem[] = [
   {
-    period: "Planning & Development",
-    role: "Assistant Director (P&D)",
+    period: "Sep 2026 — Present",
+    role: "Assistant Director (P&D) — Additional Charge",
     org: "Office of the CEO, District Education Authority Okara",
     text: "Planning, development and district-level education reporting; digital reporting workflows for schools.",
     kind: "admin",
   },
   {
-    period: "Jul 2026 — Present",
+    period: "Feb 2026 — Present",
     role: "Headmaster",
-    org: "Govt. Elementary School 44/3-R, Okara",
+    org: "Govt. Elementary School 53/2-L, Okara",
     text: "School administration, academic planning, staff coordination and institutional duties.",
     kind: "admin",
   },
