@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowUp, ArrowUpRight, Check, Copy, Loader2, Mail, Send } from "lucide-react";
 import { contact, profile } from "@/lib/data";
-import { FacebookIcon, GitHubIcon, InstagramIcon, WhatsAppIcon } from "./icons";
+import { FacebookIcon, GitHubIcon, InstagramIcon, LinkedInIcon, WhatsAppIcon } from "./icons";
 
 // FormSubmit forwards submissions to the inbox below — free, no account or API key.
 // The very first submission triggers a one-time activation email to that inbox.
@@ -12,6 +12,7 @@ const FORM_ENDPOINT = `https://formsubmit.co/ajax/${contact.email}`;
 const channels = [
   { label: "Email me", value: contact.email, href: `mailto:${contact.email}`, Icon: Mail, color: "from-cyan to-electric", external: false },
   { label: "WhatsApp me", value: contact.whatsappDisplay, href: contact.whatsapp, Icon: WhatsAppIcon, color: "from-[#25d366] to-[#128c7e]", external: true },
+  { label: "LinkedIn", value: "in/tahir8203", href: contact.linkedin, Icon: LinkedInIcon, color: "from-[#0a66c2] to-[#004182]", external: true },
   { label: "Instagram", value: "@m.tahir.mehmod", href: contact.instagram, Icon: InstagramIcon, color: "from-[#f58529] via-[#dd2a7b] to-[#8134af]", external: true },
   { label: "Facebook", value: "mtahirmehmood", href: contact.facebook, Icon: FacebookIcon, color: "from-[#1877f2] to-[#0b5fcc]", external: true },
   { label: "GitHub", value: "tahir8203", href: contact.github, Icon: GitHubIcon, color: "from-slate-500 to-slate-700", external: true },

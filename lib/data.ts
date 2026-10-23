@@ -28,6 +28,7 @@ export const contact = {
   instagram: "https://www.instagram.com/m.tahir.mehmod/",
   facebook: "https://web.facebook.com/mtahirmehmood",
   github: "https://github.com/tahir8203",
+  linkedin: "https://www.linkedin.com/in/tahir8203",
 };
 
 export const stats = [
