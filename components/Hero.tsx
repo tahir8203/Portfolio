@@ -49,7 +49,8 @@ export default function Hero() {
       const tl = gsap.timeline({ delay: 1.35, defaults: { ease: "power4.out" } });
       tl.from("[data-hero-line] > span", { yPercent: 110, duration: 1.1, stagger: 0.09 })
         .from("[data-hero-fade]", { y: 24, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.7")
-        .from("[data-hero-scene]", { opacity: 0, scale: 0.92, duration: 1.6, ease: "power2.out" }, 0);
+        .from("[data-hero-scene]", { opacity: 0, duration: 1.6, ease: "power2.out" }, 0)
+        .from("[data-hero-portrait] > *", { opacity: 0, scale: 0.6, duration: 1.1, ease: "back.out(1.6)", stagger: 0.08 }, 0.3);
     }, root);
     return () => ctx.revert();
   }, []);
@@ -57,13 +58,27 @@ export default function Hero() {
   return (
     <section id="home" ref={root} className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16">
       <div className="bg-grid pointer-events-none absolute inset-0" />
-      <div data-hero-scene className="absolute inset-0">
+      {/* Canvas covers exactly one viewport so the 3D core and the portrait stay aligned. */}
+      <div data-hero-scene className="absolute inset-x-0 top-0 h-[100svh]">
         <HeroScene />
       </div>
+      <figure
+        data-hero-portrait
+        className="absolute top-[26svh] left-1/2 z-10 w-[150px] -translate-x-1/2 -translate-y-1/2 [@media(min-aspect-ratio:115/100)]:top-[50svh] [@media(min-aspect-ratio:115/100)]:left-[77%] [@media(min-aspect-ratio:115/100)]:w-[clamp(220px,21vw,300px)]"
+      >
+        <div className="portrait-ring absolute -inset-[5px] rounded-full opacity-90 blur-[1px]" aria-hidden="true" />
+        <div className="relative overflow-hidden rounded-full border-4 border-ink bg-ink shadow-[0_25px_70px_-20px_rgba(37,99,235,0.55)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/portrait-hero.jpg" alt="Muhammad Tahir Mehmood" width={560} height={560} fetchPriority="high" className="aspect-square w-full object-cover" />
+        </div>
+        <figcaption className="glass absolute -bottom-3 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap [@media(min-aspect-ratio:115/100)]:flex">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)]" /> Open to collaborate
+        </figcaption>
+      </figure>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
 
       <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-6">
-        <div className="max-w-3xl pt-48 md:pt-0">
+        <div className="max-w-3xl pt-[calc(26svh-8px)] [@media(min-aspect-ratio:115/100)]:max-w-[min(42rem,60vw)] [@media(min-aspect-ratio:115/100)]:pt-0">
           <p data-hero-fade className="eyebrow mb-6 flex items-center gap-3">
             <span className="h-px w-10 bg-cyan" /> {profile.location}
           </p>
@@ -86,7 +101,7 @@ export default function Hero() {
           <div data-hero-fade className="mt-9 flex flex-wrap gap-3">
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan via-electric to-violet px-6 py-3 font-semibold text-ink shadow-[0_10px_40px_-10px_rgba(34,211,238,0.7)] transition-transform hover:scale-[1.03]"
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan via-electric to-violet px-6 py-3 font-semibold text-on-accent shadow-[0_10px_40px_-10px_rgba(34,211,238,0.7)] transition-transform hover:scale-[1.03]"
             >
               Explore my work <ArrowDown size={18} className="transition-transform group-hover:translate-y-0.5" />
             </a>
@@ -118,7 +133,7 @@ export default function Hero() {
         aria-label="Scroll to About section"
       >
         Scroll
-        <span className="relative h-10 w-px overflow-hidden bg-white/15">
+        <span className="relative h-10 w-px overflow-hidden bg-fg/15">
           <span className="scroll-dot absolute inset-x-0 top-0 h-1/2 bg-cyan" />
         </span>
       </a>

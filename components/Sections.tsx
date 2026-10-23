@@ -45,7 +45,7 @@ function Ext({ href, children, className = "" }: { href: string; children: React
 }
 
 function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs text-muted">{children}</span>;
+  return <span className="rounded-full border border-line bg-fg/[0.03] px-3 py-1 text-xs text-muted">{children}</span>;
 }
 
 const wrap = "mx-auto max-w-6xl px-5 sm:px-6";
@@ -130,7 +130,7 @@ function BrowserFrame({ src, alt, url }: { src: string; alt: string; url: string
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        <span className="ml-3 truncate rounded-md bg-white/5 px-3 py-0.5 text-[11px] text-muted">{url.replace("https://", "")}</span>
+        <span className="ml-3 truncate rounded-md bg-fg/5 px-3 py-0.5 text-[11px] text-muted">{url.replace("https://", "")}</span>
       </div>
       <div className="overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -195,7 +195,7 @@ export function Work() {
                 <div data-reveal className="mt-7">
                   <Ext
                     href={p.url}
-                    className="rounded-full bg-gradient-to-r from-cyan to-electric px-5 py-2.5 text-sm font-semibold text-ink transition-transform hover:scale-[1.03]"
+                    className="rounded-full bg-gradient-to-r from-cyan to-electric px-5 py-2.5 text-sm font-semibold text-on-accent transition-transform hover:scale-[1.03]"
                   >
                     Visit live app
                   </Ext>
@@ -323,7 +323,7 @@ export function Leadership() {
               </p>
               <h3 className="font-display text-2xl font-semibold">PESRP / School Education Department, Punjab</h3>
             </div>
-            <p className="max-w-md rounded-xl border border-amber-300/25 bg-amber-300/[0.06] px-4 py-3 text-xs leading-relaxed text-amber-100/90">
+            <p className="max-w-md rounded-xl border border-amber-500/30 bg-amber-400/10 px-4 py-3 text-xs leading-relaxed text-amber-800 dark:text-amber-100/90">
               <strong>Note:</strong> these are official Government of Punjab platforms. I use them for reporting, data and monitoring work — I did not
               develop them.
             </p>
@@ -335,7 +335,7 @@ export function Leadership() {
                   href={g.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block h-full rounded-2xl border border-line bg-white/[0.02] p-5 transition-colors hover:border-cyan/40 hover:bg-white/[0.04]"
+                  className="group block h-full rounded-2xl border border-line bg-fg/[0.02] p-5 transition-colors hover:border-cyan/40 hover:bg-fg/[0.04]"
                 >
                   <span className="flex items-center justify-between font-display font-semibold">
                     {g.name} <ArrowUpRight size={16} className="text-muted transition-colors group-hover:text-cyan" aria-hidden="true" />
@@ -370,7 +370,7 @@ export function Skills() {
         />
       </div>
       <div className="relative mb-14 overflow-hidden border-y border-line py-5 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]" aria-hidden="true">
-        <div className="animate-marquee flex w-max gap-10 whitespace-nowrap font-display text-2xl text-white/25">
+        <div className="animate-marquee flex w-max gap-10 whitespace-nowrap font-display text-2xl text-fg/20">
           {[...marquee, ...marquee].map((s, i) => (
             <span key={i} className="flex items-center gap-10">
               {s} <span className="text-cyan/50">✦</span>
@@ -386,7 +386,7 @@ export function Skills() {
               {s.items.map((it) => (
                 <li
                   key={it}
-                  className="rounded-lg border border-line bg-white/[0.03] px-3 py-1.5 text-sm text-fg/85 transition-colors hover:border-cyan/50 hover:text-cyan"
+                  className="rounded-lg border border-line bg-fg/[0.03] px-3 py-1.5 text-sm text-fg/85 transition-colors hover:border-cyan/50 hover:text-cyan"
                 >
                   {it}
                 </li>
@@ -415,7 +415,7 @@ export function Journey() {
           }
         />
         <ol className="relative ml-3 sm:ml-0">
-          <span className="absolute top-0 bottom-0 left-0 w-px bg-white/10 sm:left-1/2" aria-hidden="true" />
+          <span className="absolute top-0 bottom-0 left-0 w-px bg-fg/10 sm:left-1/2" aria-hidden="true" />
           <span
             data-timeline-line
             className="absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-electric to-violet sm:left-1/2"
@@ -430,7 +430,7 @@ export function Journey() {
               <div data-reveal data-tilt className="ring-glow glass rounded-2xl p-6 text-left">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="font-display text-sm text-cyan">{t.period}</span>
-                  <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] uppercase tracking-wider text-muted">{kindLabel[t.kind]}</span>
+                  <span className="rounded-full bg-fg/5 px-2.5 py-0.5 text-[11px] uppercase tracking-wider text-muted">{kindLabel[t.kind]}</span>
                 </div>
                 <h3 className="mt-2 font-display text-lg font-semibold">{t.role}</h3>
                 <p className="text-sm text-fg/80">{t.org}</p>

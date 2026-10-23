@@ -4,9 +4,16 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, MeshDistortMaterial, Sparkles } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { useTheme } from "./Chrome";
+
+type Palette = { core: string; emissive: string; wire: string; wireOpacity: number; ringA: string; ringB: string; points: string; sparkle: string };
+const PALETTES: Record<"light" | "dark", Palette> = {
+  dark: { core: "#4338ca", emissive: "#1e1b4b", wire: "#22d3ee", wireOpacity: 0.28, ringA: "#a78bfa", ringB: "#60a5fa", points: "#c7d2fe", sparkle: "#67e8f9" },
+  light: { core: "#6366f1", emissive: "#312e81", wire: "#0891b2", wireOpacity: 0.45, ringA: "#7c3aed", ringB: "#2563eb", points: "#6366f1", sparkle: "#0891b2" },
+};
 
 /** Glowing distorted core with a wireframe shell — the "knowledge core". */
-function Core({ calm }: { calm: boolean }) {
+function Core({ calm, pal }: { calm: boolean; pal: Palette }) {
   const shell = useRef<THREE.Mesh>(null);
   const group = useRef<THREE.Group>(null);
   const { pointer } = useThree();
@@ -26,8 +33,8 @@ function Core({ calm }: { calm: boolean }) {
         <mesh>
           <icosahedronGeometry args={[1.25, 24]} />
           <MeshDistortMaterial
-            color="#4338ca"
-            emissive="#1e1b4b"
+            color={pal.core}
+            emissive={pal.emissive}
             emissiveIntensity={0.6}
             roughness={0.22}
             metalness={0.35}
@@ -37,15 +44,15 @@ function Core({ calm }: { calm: boolean }) {
         </mesh>
         <mesh ref={shell} scale={1.62}>
           <icosahedronGeometry args={[1, 1]} />
-          <meshBasicMaterial color="#22d3ee" wireframe transparent opacity={0.28} />
+          <meshBasicMaterial color={pal.wire} wireframe transparent opacity={pal.wireOpacity} />
         </mesh>
       </Float>
-      <Rings calm={calm} />
+      <Rings calm={calm} pal={pal} />
     </group>
   );
 }
 
-function Rings({ calm }: { calm: boolean }) {
+function Rings({ calm, pal }: { calm: boolean; pal: Palette }) {
   const a = useRef<THREE.Mesh>(null);
   const b = useRef<THREE.Mesh>(null);
   useFrame((_, dt) => {
@@ -57,18 +64,18 @@ function Rings({ calm }: { calm: boolean }) {
     <>
       <mesh ref={a} rotation={[Math.PI / 2.4, 0.2, 0]}>
         <torusGeometry args={[2.35, 0.012, 16, 160]} />
-        <meshBasicMaterial color="#a78bfa" transparent opacity={0.7} />
+        <meshBasicMaterial color={pal.ringA} transparent opacity={0.7} />
       </mesh>
       <mesh ref={b} rotation={[Math.PI / 1.8, -0.5, 0.4]}>
         <torusGeometry args={[2.85, 0.008, 16, 160]} />
-        <meshBasicMaterial color="#60a5fa" transparent opacity={0.45} />
+        <meshBasicMaterial color={pal.ringB} transparent opacity={0.5} />
       </mesh>
     </>
   );
 }
 
 /** Particle field that slowly drifts and leans away from the pointer. */
-function Field({ count, calm }: { count: number; calm: boolean }) {
+function Field({ count, calm, color }: { count: number; calm: boolean; color: string }) {
   const points = useRef<THREE.Points>(null);
   const { pointer } = useThree();
   const positions = useMemo(() => {
@@ -96,7 +103,7 @@ function Field({ count, calm }: { count: number; calm: boolean }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.025} color="#c7d2fe" transparent opacity={0.75} sizeAttenuation depthWrite={false} />
+      <pointsMaterial size={0.025} color={color} transparent opacity={0.75} sizeAttenuation depthWrite={false} />
     </points>
   );
 }
@@ -120,6 +127,7 @@ export default function HeroScene() {
   const [visible, setVisible] = useState(true);
   const [calm, setCalm] = useState(false);
   const [mobile, setMobile] = useState(false);
+  const pal = PALETTES[useTheme()];
 
   useEffect(() => {
     setCalm(matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -143,10 +151,10 @@ export default function HeroScene() {
         <pointLight position={[5, 2, 3]} intensity={60} color="#22d3ee" />
         <pointLight position={[-2, -3, 3]} intensity={45} color="#c084fc" />
         <Placement>
-          <Core calm={calm} />
+          <Core calm={calm} pal={pal} />
         </Placement>
-        <Field count={mobile ? 700 : 1600} calm={calm} />
-        {!calm && <Sparkles count={mobile ? 30 : 60} scale={[12, 6, 4]} size={2.2} speed={0.35} color="#67e8f9" opacity={0.6} />}
+        <Field count={mobile ? 700 : 1600} calm={calm} color={pal.points} />
+        {!calm && <Sparkles count={mobile ? 30 : 60} scale={[12, 6, 4]} size={2.2} speed={0.35} color={pal.sparkle} opacity={0.6} />}
       </Canvas>
     </div>
   );

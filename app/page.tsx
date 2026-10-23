@@ -58,7 +58,7 @@ export default async function Page() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-full focus:bg-cyan focus:px-4 focus:py-2 focus:text-ink"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-full focus:bg-cyan focus:px-4 focus:py-2 focus:text-on-accent"
       >
         Skip to content
       </a>

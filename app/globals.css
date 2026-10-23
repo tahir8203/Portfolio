@@ -1,29 +1,71 @@
 @import "tailwindcss";
 
-@theme {
-  --color-ink: #05060f;
-  --color-ink-2: #0a0c1d;
-  --color-panel: rgba(17, 20, 44, 0.55);
-  --color-line: rgba(148, 163, 255, 0.14);
-  --color-fg: #e8ecff;
-  --color-muted: #9aa3c7;
-  --color-cyan: #22d3ee;
-  --color-violet: #a78bfa;
-  --color-electric: #3b82f6;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-electric: var(--electric);
+  --color-on-accent: var(--on-accent);
   --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Light (default): white canvas, deeper accents for contrast */
 :root {
+  color-scheme: light;
+  --ink: #ffffff;
+  --ink-2: #f4f6fd;
+  --line: rgba(30, 41, 99, 0.12);
+  --fg: #0d1230;
+  --muted: #545d82;
+  --cyan: #0891b2;
+  --violet: #7c3aed;
+  --electric: #2563eb;
+  --on-accent: #ffffff;
+  --glass-a: rgba(255, 255, 255, 0.82);
+  --glass-b: rgba(248, 250, 255, 0.66);
+  --glass-shadow: 0 10px 40px -18px rgba(37, 52, 120, 0.28);
+  --grid: rgba(37, 99, 235, 0.07);
+  --mesh-1: rgba(124, 58, 237, 0.13);
+  --mesh-2: rgba(8, 145, 178, 0.13);
+  --mesh-3: rgba(236, 72, 153, 0.07);
+  --grad: linear-gradient(100deg, #0891b2 0%, #2563eb 45%, #7c3aed 80%, #c026d3 100%);
+}
+
+:root[data-theme="dark"] {
   color-scheme: dark;
+  --ink: #05060f;
+  --ink-2: #0a0c1d;
+  --line: rgba(148, 163, 255, 0.14);
+  --fg: #e8ecff;
+  --muted: #9aa3c7;
+  --cyan: #22d3ee;
+  --violet: #a78bfa;
+  --electric: #3b82f6;
+  --on-accent: #05060f;
+  --glass-a: rgba(23, 27, 58, 0.62);
+  --glass-b: rgba(12, 14, 32, 0.5);
+  --glass-shadow: none;
+  --grid: rgba(148, 163, 255, 0.05);
+  --mesh-1: rgba(124, 58, 237, 0.16);
+  --mesh-2: rgba(34, 211, 238, 0.1);
+  --mesh-3: rgba(236, 72, 153, 0.04);
+  --grad: linear-gradient(100deg, #67e8f9 0%, #60a5fa 40%, #a78bfa 75%, #f0abfc 100%);
 }
 
 html {
-  background: var(--color-ink);
-  color: var(--color-fg);
+  background: var(--ink);
+  color: var(--fg);
   -webkit-font-smoothing: antialiased;
   scroll-padding-top: 88px;
   overflow-x: clip;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 html.lenis,
@@ -37,15 +79,16 @@ html.lenis body {
 body {
   font-family: var(--font-sans);
   background:
-    radial-gradient(1200px 600px at 85% -10%, rgba(124, 58, 237, 0.16), transparent 60%),
-    radial-gradient(900px 500px at -10% 20%, rgba(34, 211, 238, 0.1), transparent 60%),
-    var(--color-ink);
+    radial-gradient(1200px 640px at 85% -10%, var(--mesh-1), transparent 60%),
+    radial-gradient(900px 520px at -10% 18%, var(--mesh-2), transparent 60%),
+    radial-gradient(800px 600px at 50% 110%, var(--mesh-3), transparent 60%),
+    var(--ink);
+  background-attachment: fixed;
   overflow-x: clip;
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.35);
-  color: #fff;
+  background: color-mix(in srgb, var(--cyan) 30%, transparent);
 }
 
 :focus-visible {
@@ -57,21 +100,22 @@ body {
 /* subtle film grain + grid */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(148, 163, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
 }
 
 .glass {
-  background: linear-gradient(180deg, rgba(23, 27, 58, 0.62), rgba(12, 14, 32, 0.5));
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
   border: 1px solid var(--color-line);
+  box-shadow: var(--glass-shadow);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, #67e8f9 0%, #60a5fa 40%, #a78bfa 75%, #f0abfc 100%);
+  background: var(--grad);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -86,7 +130,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.7), transparent 35%, transparent 65%, rgba(167, 139, 250, 0.7));
+  background: linear-gradient(135deg, var(--cyan), transparent 35%, transparent 65%, var(--violet));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -144,7 +188,7 @@ body {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(34, 211, 238, 0.09), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--cyan) 10%, transparent), transparent 45%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -184,4 +228,15 @@ body {
     opacity: 1;
     transform: none;
   }
+}
+
+/* rotating gradient ring around the hero portrait */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.portrait-ring {
+  background: conic-gradient(from 0deg, var(--cyan), var(--electric), var(--violet), #ec4899, var(--cyan));
+  animation: spin-slow 9s linear infinite;
 }

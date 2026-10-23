@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { contact, nav } from "@/lib/data";
 import { WhatsAppIcon } from "./icons";
 
@@ -34,12 +34,47 @@ export function Loader() {
         <div className="font-display text-5xl font-bold tracking-tight">
           <span className="text-gradient">MTM</span>
         </div>
-        <div className="mx-auto mt-5 h-px w-44 overflow-hidden bg-white/10">
+        <div className="mx-auto mt-5 h-px w-44 overflow-hidden bg-fg/10">
           <div data-bar className="h-full origin-left bg-gradient-to-r from-cyan via-electric to-violet" />
         </div>
         <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted">Education · Technology · Leadership</p>
       </div>
     </div>
+  );
+}
+
+/** Light by default; the choice is remembered. HeroScene listens for "themechange". */
+export function useTheme() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  useEffect(() => {
+    const read = () => setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+    read();
+    addEventListener("themechange", read);
+    return () => removeEventListener("themechange", read);
+  }, []);
+  return theme;
+}
+
+function ThemeToggle() {
+  const theme = useTheme();
+  const toggle = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    if (next === "dark") document.documentElement.dataset.theme = "dark";
+    else delete document.documentElement.dataset.theme;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+    dispatchEvent(new Event("themechange"));
+  };
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      className="grid h-10 w-10 place-items-center rounded-xl border border-line transition-colors hover:border-cyan/50 hover:text-cyan"
+    >
+      {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
   );
 }
 
@@ -85,7 +120,7 @@ export function Nav() {
       <div ref={bar} className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-cyan via-electric to-violet" />
       <nav
         aria-label="Primary"
-        className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 sm:px-5 ${scrolled ? "glass shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)]" : ""}`}
+        className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 sm:px-5 ${scrolled ? "glass shadow-[0_10px_40px_-14px_rgba(15,23,70,0.35)]" : ""}`}
       >
         <a href="#home" className="font-display text-lg font-bold tracking-tight" aria-label="Muhammad Tahir Mehmood — home">
           tahir<span className="text-cyan">.</span>
@@ -96,7 +131,7 @@ export function Nav() {
               <a
                 href={n.href}
                 aria-current={active === n.href ? "location" : undefined}
-                className={`rounded-full px-3 py-1.5 text-sm transition-colors hover:text-fg ${active === n.href ? "bg-white/[0.07] text-fg" : "text-muted"}`}
+                className={`rounded-full px-3 py-1.5 text-sm transition-colors hover:text-fg ${active === n.href ? "bg-fg/[0.07] text-fg" : "text-muted"}`}
               >
                 {n.label}
               </a>
@@ -104,11 +139,12 @@ export function Nav() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={contact.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-electric px-4 py-2 text-sm font-semibold text-ink transition-transform hover:scale-[1.03] sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-electric px-4 py-2 text-sm font-semibold text-on-accent transition-transform hover:scale-[1.03] sm:inline-flex"
           >
             Let&apos;s talk
           </a>
@@ -132,7 +168,7 @@ export function Nav() {
         <ul className="grid gap-1 p-3">
           {nav.map((n) => (
             <li key={n.href}>
-              <a href={n.href} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3 text-base hover:bg-white/5">
+              <a href={n.href} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3 text-base hover:bg-fg/5">
                 {n.label}
               </a>
             </li>

@@ -86,7 +86,7 @@ function ContactForm() {
   }
 
   const field =
-    "w-full rounded-xl border border-line bg-white/[0.03] px-4 py-3 text-fg placeholder:text-muted/60 outline-none transition focus:border-cyan/60 focus:bg-white/[0.05] focus:ring-2 focus:ring-cyan/20";
+    "w-full rounded-xl border border-line bg-fg/[0.03] px-4 py-3 text-fg placeholder:text-muted/60 outline-none transition focus:border-cyan/60 focus:bg-fg/[0.05] focus:ring-2 focus:ring-cyan/20";
 
   return (
     <form onSubmit={onSubmit} className="glass ring-glow rounded-3xl p-6 sm:p-8" aria-describedby="form-status">
@@ -114,15 +114,15 @@ function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan via-electric to-violet px-6 py-3.5 font-semibold text-ink transition-transform hover:scale-[1.01] disabled:opacity-60 sm:w-auto"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan via-electric to-violet px-6 py-3.5 font-semibold text-on-accent transition-transform hover:scale-[1.01] disabled:opacity-60 sm:w-auto"
       >
         {status === "sending" ? <Loader2 size={18} className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
         {status === "sending" ? "Sending…" : "Send message"}
       </button>
       <p id="form-status" role="status" aria-live="polite" className="mt-4 min-h-5 text-sm">
-        {status === "sent" && <span className="text-emerald-300">Thank you — your message has been sent.</span>}
+        {status === "sent" && <span className="text-emerald-600 dark:text-emerald-300">Thank you — your message has been sent.</span>}
         {status === "error" && (
-          <span className="text-rose-300">
+          <span className="text-rose-600 dark:text-rose-300">
             Couldn&apos;t send right now. Please email{" "}
             <a className="underline" href={`mailto:${contact.email}`}>
               {contact.email}
@@ -161,7 +161,7 @@ export function Contact() {
                     href={href}
                     {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     data-tilt
-                    className="group ring-glow glass flex items-center gap-4 rounded-2xl p-4 transition-colors hover:border-white/20"
+                    className="group ring-glow glass flex items-center gap-4 rounded-2xl p-4 transition-colors hover:border-fg/20"
                   >
                     <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${color} text-white shadow-lg`}>
                       <Icon width={22} height={22} aria-hidden="true" />
@@ -228,7 +228,7 @@ export function Footer() {
             </li>
           ))}
           <li>
-            <a href="#home" aria-label="Back to top" className="ml-2 grid h-10 w-10 place-items-center rounded-full bg-white/5 text-fg transition-colors hover:bg-white/10">
+            <a href="#home" aria-label="Back to top" className="ml-2 grid h-10 w-10 place-items-center rounded-full bg-fg/5 text-fg transition-colors hover:bg-fg/10">
               <ArrowUp size={18} aria-hidden="true" />
             </a>
           </li>

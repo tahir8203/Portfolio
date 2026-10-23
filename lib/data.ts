@@ -1,7 +1,7 @@
 // All site content lives here. Every fact below comes from the previous portfolio,
 // the project repositories / live apps, or details supplied by Tahir — nothing invented.
 
-export const SITE_URL = "https://mtahirmehmood.vercel.app";
+export const SITE_URL = "https://tahir-portfolio-teal.vercel.app";
 
 export const profile = {
   name: "Muhammad Tahir Mehmood",
