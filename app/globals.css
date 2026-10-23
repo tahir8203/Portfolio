@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-electric: var(--electric);
+  --color-on-accent: var(--on-accent);
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Light (default): white canvas, deeper accents for contrast */
+:root {
+  color-scheme: light;
+  --ink: #ffffff;
+  --ink-2: #f4f6fd;
+  --line: rgba(30, 41, 99, 0.12);
+  --fg: #0d1230;
+  --muted: #545d82;
+  --cyan: #0891b2;
+  --violet: #7c3aed;
+  --electric: #2563eb;
+  --on-accent: #ffffff;
+  --glass-a: rgba(255, 255, 255, 0.82);
+  --glass-b: rgba(248, 250, 255, 0.66);
+  --glass-shadow: 0 10px 40px -18px rgba(37, 52, 120, 0.28);
+  --grid: rgba(37, 99, 235, 0.07);
+  --mesh-1: rgba(124, 58, 237, 0.13);
+  --mesh-2: rgba(8, 145, 178, 0.13);
+  --mesh-3: rgba(236, 72, 153, 0.07);
+  --grad: linear-gradient(100deg, #0891b2 0%, #2563eb 45%, #7c3aed 80%, #c026d3 100%);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #05060f;
+  --ink-2: #0a0c1d;
+  --line: rgba(148, 163, 255, 0.14);
+  --fg: #e8ecff;
+  --muted: #9aa3c7;
+  --cyan: #22d3ee;
+  --violet: #a78bfa;
+  --electric: #3b82f6;
+  --on-accent: #05060f;
+  --glass-a: rgba(23, 27, 58, 0.62);
+  --glass-b: rgba(12, 14, 32, 0.5);
+  --glass-shadow: none;
+  --grid: rgba(148, 163, 255, 0.05);
+  --mesh-1: rgba(124, 58, 237, 0.16);
+  --mesh-2: rgba(34, 211, 238, 0.1);
+  --mesh-3: rgba(236, 72, 153, 0.04);
+  --grad: linear-gradient(100deg, #67e8f9 0%, #60a5fa 40%, #a78bfa 75%, #f0abfc 100%);
+}
+
+html {
+  background: var(--ink);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scroll-padding-top: 88px;
+  overflow-x: clip;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(1200px 640px at 85% -10%, var(--mesh-1), transparent 60%),
+    radial-gradient(900px 520px at -10% 18%, var(--mesh-2), transparent 60%),
+    radial-gradient(800px 600px at 50% 110%, var(--mesh-3), transparent 60%),
+    var(--ink);
+  background-attachment: fixed;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--cyan) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* subtle film grain + grid */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+.glass {
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
+  border: 1px solid var(--color-line);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.text-gradient {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ring-glow {
+  position: relative;
+}
+.ring-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--cyan), transparent 35%, transparent 65%, var(--violet));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.ring-glow:hover::before,
+.ring-glow:focus-within::before {
+  opacity: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--color-cyan);
+}
+
+/* elements animated by GSAP start hidden only when JS + motion are available */
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes scroll-dot {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+.scroll-dot {
+  animation: scroll-dot 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
+/* cursor spotlight on tilt cards */
+[data-tilt] {
+  position: relative;
+}
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--cyan) 10%, transparent), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+[data-tilt]:hover::after {
+  opacity: 1;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #25d366;
+  animation: pulse-ring 2.2s ease-out infinite;
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js-motion [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* rotating gradient ring around the hero portrait */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.portrait-ring {
+  background: conic-gradient(from 0deg, var(--cyan), var(--electric), var(--violet), #ec4899, var(--cyan));
+  animation: spin-slow 9s linear infinite;
+}
