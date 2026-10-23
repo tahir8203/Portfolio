@@ -62,7 +62,7 @@ const jsonLd = {
     { "@type": "CollegeOrUniversity", name: "Government College University Faisalabad" },
     { "@type": "CollegeOrUniversity", name: "University of Education, Lahore" },
   ],
-  sameAs: [contact.github, contact.instagram, contact.facebook],
+  sameAs: [contact.linkedin, contact.github, contact.instagram, contact.facebook],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
