@@ -196,7 +196,7 @@ export const leadership = [
   },
   {
     title: "School headship",
-    text: "Years as In-Charge Headmaster and Headmaster — academic planning, staff coordination, timetabling and institutional duties.",
+    text: "Headmaster on additional charge at GHS 44/3-R and now Headmaster at GES 53/2-L — academic planning, staff coordination, timetabling and institutional duties.",
   },
 ];
 
@@ -259,10 +259,10 @@ export const timeline: TimelineItem[] = [
     kind: "teach",
   },
   {
-    period: "Mar 2018 — Mar 2026",
-    role: "Secondary School Teacher → In-Charge Headmaster",
+    period: "Mar 2018 — Feb 2026",
+    role: "Secondary School Teacher → Headmaster (Additional Charge)",
     org: "Govt. High School 44/3-R, Okara",
-    text: "Secondary School Teacher (Mar 2018 – Jul 2023), then In-Charge Headmaster (Jul 2023 – Mar 2026).",
+    text: "Secondary School Teacher (Mar 2018 – Jun 2023), then Headmaster on additional charge (Jun 2023 – Feb 2026).",
     kind: "both",
   },
   {
