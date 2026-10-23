@@ -1,39 +1,56 @@
-# Muhammad Tahir Mehmood — Portfolio
+# Muhammad Tahir Mehmood — Portfolio (v2, 3D)
 
-Personal portfolio of **Muhammad Tahir Mehmood**, Full Stack Developer and AI Engineer and Computer Science Lecturer in Okara, Pakistan.
+Interactive portfolio of **Muhammad Tahir Mehmood** — Computer Science Educator, Software Developer, AI & Automation enthusiast and Educational Administration professional (Okara, Pakistan).
 
-- **Services:** full stack web apps, AI chatbots and automation, fixing and deploying AI-built apps, Excel dashboards and VBA, Android apps
-- **Skills:** React, Next.js, Node.js, Python (Django, FastAPI), Firebase, OpenAI and Claude APIs, LangChain, RAG, n8n, Excel, VBA, Power Query, Kotlin
-- **Education:** MS / M.Phil. Computer Science, Govt. College University Faisalabad (2020)
-
-## Featured projects
-
-| Project | Link |
-|---|---|
-| AI Document Q&A Chatbot (RAG) | [AI-chatbot](https://github.com/tahir8203/AI-chatbot) |
-| Excel Sales Performance Dashboard | [excel-sales-dashboard](https://github.com/tahir8203/excel-sales-dashboard) |
-| University LMS Portal | [University-LMS-Portal](https://github.com/tahir8203/University-LMS-Portal) |
-| Time Table Portal | [Time-Table-Portal](https://github.com/tahir8203/Time-Table-Portal) |
-| Artificial Intelligence learning site | [Artificial-Intelligence](https://github.com/tahir8203/Artificial-Intelligence) |
-| React Learning Hub | [react-learning-hub](https://github.com/tahir8203/react-learning-hub) |
-
-## Links
-
-- Live portfolio: https://tahir-mehmood.tahir8203.chatgpt.site/
-- Fiverr: https://www.fiverr.com/tahir8203
-- GitHub: https://github.com/tahir8203
-
-## Deploy on Vercel
-
-1. Sign in at [vercel.com](https://vercel.com) with GitHub → **Add New → Project** → import this repository.
-2. Framework preset: **Other**. Leave Build Command empty and Output Directory as the root, then click **Deploy**.
+**Stack:** Next.js 15 (static export) · React 19 · TypeScript · Tailwind CSS 4 · Three.js / React Three Fiber / Drei · GSAP + ScrollTrigger · Lenis smooth scroll · Lucide icons.
 
 ## Run locally
 
-This is a static site with no build step. Open `index.html` in a browser, or serve the folder:
-
 ```bash
-python -m http.server 8000
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static site written to ./out
 ```
 
-Files: `index.html` (content), `style.css` (design), `script.js` (animations and navigation), `portrait-web.jpg`, `Muhammad-Tahir-Mehmood-CV.pdf`.
+## Updating content
+
+Almost everything lives in **`lib/data.ts`** — edit it and push; Vercel redeploys automatically.
+
+| To change… | Edit |
+|---|---|
+| Name, headline, rotating roles, intro | `profile` |
+| Email, WhatsApp, Instagram, Facebook, GitHub | `contact` |
+| Featured projects (PGC LMS, DEA Okara) | `featured` — screenshots in `public/shots/` |
+| Other software / teaching portals | `moreSoftware`, `teaching` |
+| DEA / leadership text, government platforms | `leadership`, `govPlatforms` |
+| Skills, experience timeline, education, research | `skills`, `timeline`, `education`, `research` |
+| GitHub cards | Pulled from the public GitHub API at build time; order and fallback descriptions in `app/page.tsx` |
+| CV / portrait | Replace `public/Muhammad-Tahir-Mehmood-CV.pdf` / `public/portrait-web.jpg` (keep the names) |
+| Social preview image | `public/og.png` (1200×630) |
+| Site address used in SEO tags | `SITE_URL` in `lib/data.ts` |
+
+To refresh a project screenshot, save a 1440×900 JPG over the file in `public/shots/`.
+
+## Contact form
+
+The form posts to [FormSubmit](https://formsubmit.co) (free, no account or API key). **The first message sent through the live site triggers a one-time activation email to tahir8203@gmail.com — click the link in it once** and every later message is delivered. If the service is ever unavailable the form shows the email address and WhatsApp as a fallback.
+
+## Project structure
+
+```
+app/          layout (SEO, JSON-LD), page, globals.css, sitemap, robots, icon
+components/   Hero + HeroScene (3D), Sections, Contact/Footer, Chrome (loader, nav, WhatsApp button), Motion (GSAP/Lenis)
+lib/data.ts   all content
+public/       CV, portrait, og.png, project screenshots
+```
+
+## Accessibility & performance
+
+- Respects `prefers-reduced-motion`: no loader, no smooth scroll, static 3D scene, all content visible.
+- Three.js is code-split and loaded after first paint; the canvas stops rendering when the hero is off-screen; fewer particles and lower pixel ratio on phones.
+- Skip link, visible focus rings, labelled controls, `aria-current` navigation, external links announced.
+
+## Deploy (free)
+
+Vercel (Hobby plan, free) builds this automatically from GitHub — `vercel.json` sets the framework to Next.js and the output to `out/`.
+Because it is a fully static export, the same `out/` folder can also be hosted free on GitHub Pages, Netlify or Cloudflare Pages.
