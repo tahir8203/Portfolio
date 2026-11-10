@@ -7,6 +7,7 @@ import { fallbackRepos, type Repo } from "@/lib/data";
 
 // Repos shown first, in this order, when they are public. Others fill remaining slots by recent activity.
 const PINNED = [
+  "Compiler-Construction",
   "ucp-university-lms-portal",
   "Artificial-Intelligence",
   "Mobile-Application-Development",
@@ -32,6 +33,7 @@ const DESCRIPTIONS: Record<string, string> = {
   "University-LMS-Portal": "Teachers manage quizzes, assignments and lectures; students respond.",
   "Quiz-Portal": "Web-based quiz portal for classroom assessment.",
   "Computer-Networks": "Computer Networks course material.",
+  "Compiler-Construction": "Interactive Compiler Construction course — lectures 1–3 with live demos.",
 };
 
 /** Fetched once at build time from the public GitHub API — only public repositories are ever returned. */
