@@ -145,6 +145,14 @@ export const moreSoftware = [
 
 export const teaching = [
   {
+    title: "Compiler Construction",
+    text: "Lectures 1–3 (2026 edition) from source code to running program — live tokenizer, parser and compiler demo, CPU simulator, real GCC/Rust/Python errors, ARM/RISC-V/WebAssembly output, quizzes and flashcards.",
+    url: "https://compiler-construction-phi.vercel.app/",
+    repo: "https://github.com/tahir8203/Compiler-Construction",
+    image: "/shots/cc.jpg",
+    tags: ["Lectures 1–3", "Live demos", "Quizzes"],
+  },
+  {
     title: "Artificial Intelligence",
     text: "Lectures 1–16, assessments and practical AI labs in one visual, interactive learning portal with search and progress tracking.",
     url: "https://artificial-intelligence-lake.vercel.app/",
