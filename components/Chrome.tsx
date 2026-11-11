@@ -19,7 +19,19 @@ export function Loader() {
       return;
     }
     const tl = gsap.timeline({ onComplete: () => setGone(true) });
-    tl.fromTo(el.querySelector("[data-bar]"), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" })
+    const pct = el.querySelector("[data-pct]");
+    tl.fromTo(
+      el.querySelector("[data-bar]"),
+      { scaleX: 0 },
+      {
+        scaleX: 1,
+        duration: 0.9,
+        ease: "power2.inOut",
+        onUpdate() {
+          if (pct) pct.textContent = String(Math.round(this.progress() * 100)).padStart(2, "0");
+        },
+      },
+    )
       .to(el.querySelector("[data-mark]"), { y: -12, opacity: 0, duration: 0.35, ease: "power2.in" }, "+=0.05")
       .to(el, { yPercent: -100, duration: 0.7, ease: "expo.inOut" }, "-=0.1");
     return () => {
@@ -38,8 +50,25 @@ export function Loader() {
           <div data-bar className="h-full origin-left bg-gradient-to-r from-cyan via-electric to-violet" />
         </div>
         <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted">Education · Technology · Leadership</p>
+        <p className="mt-3 font-display text-sm text-muted tabular-nums" aria-hidden="true">
+          <span data-pct>00</span>%
+        </p>
       </div>
     </div>
+  );
+}
+
+/** Slow-drifting colour fields behind the whole page, plus a faint film grain. Pure CSS, decorative. */
+export function Aurora() {
+  return (
+    <>
+      <div className="aurora" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="grain" aria-hidden="true" />
+    </>
   );
 }
 
@@ -57,14 +86,24 @@ export function useTheme() {
 
 function ThemeToggle() {
   const theme = useTheme();
-  const toggle = () => {
+  const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const next = theme === "dark" ? "light" : "dark";
-    if (next === "dark") document.documentElement.dataset.theme = "dark";
-    else delete document.documentElement.dataset.theme;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-    dispatchEvent(new Event("themechange"));
+    const root = document.documentElement;
+    const apply = () => {
+      if (next === "dark") root.dataset.theme = "dark";
+      else delete root.dataset.theme;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      dispatchEvent(new Event("themechange"));
+    };
+    // The new theme opens as a circle from the button where the browser supports View Transitions.
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+    if (!doc.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
+    const r = e.currentTarget.getBoundingClientRect();
+    root.style.setProperty("--vt-x", `${r.left + r.width / 2}px`);
+    root.style.setProperty("--vt-y", `${r.top + r.height / 2}px`);
+    doc.startViewTransition(apply);
   };
   return (
     <button

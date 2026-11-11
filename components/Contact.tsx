@@ -114,6 +114,7 @@ function ContactForm() {
       <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <button
         type="submit"
+        data-magnetic
         disabled={status === "sending"}
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan via-electric to-violet px-6 py-3.5 font-semibold text-on-accent transition-transform hover:scale-[1.01] disabled:opacity-60 sm:w-auto"
       >
@@ -145,7 +146,7 @@ export function Contact() {
           <p data-reveal className="eyebrow mb-4">
             <span className="text-muted">08 /</span> Contact &amp; connect
           </p>
-          <h2 data-reveal className="font-display text-[clamp(2rem,4.6vw,3.4rem)] font-bold leading-[1.05] tracking-tight">
+          <h2 data-split className="font-display text-[clamp(2rem,4.6vw,3.4rem)] font-bold leading-[1.05] tracking-tight">
             Have an idea? <span className="text-gradient">Let&apos;s make it meaningful.</span>
           </h2>
           <p data-reveal className="mt-5 text-lg text-muted">
@@ -199,7 +200,14 @@ export function Contact() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-line pt-10 pb-28 sm:pb-10">
+    <footer className="overflow-hidden border-t border-line pt-10 pb-28 sm:pb-10">
+      <p
+        aria-hidden="true"
+        data-reveal
+        className="text-outline pointer-events-none mb-8 text-center font-display text-[clamp(2.4rem,12.2vw,11rem)] leading-[0.85] font-bold tracking-tight whitespace-nowrap select-none"
+      >
+        Tahir Mehmood
+      </p>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-5 sm:flex-row sm:px-6">
         <div className="text-center sm:text-left">
           <a href="#home" className="font-display text-lg font-bold">
