@@ -7,6 +7,7 @@ import { fallbackRepos, type Repo } from "@/lib/data";
 
 // Repos shown first, in this order, when they are public. Others fill remaining slots by recent activity.
 const PINNED = [
+  "Applications-of-ICT",
   "Compiler-Construction",
   "ucp-university-lms-portal",
   "Artificial-Intelligence",
@@ -21,6 +22,7 @@ const PINNED = [
 
 // Most repos have no GitHub description; these fill the gap (a description set on GitHub wins).
 const DESCRIPTIONS: Record<string, string> = {
+  "Applications-of-ICT": "Animated ICT-1013 course for BS Psychology — 30 sessions, quizzes, exams and Watch mode.",
   "ucp-university-lms-portal": "University LMS with admin, teacher and student portals on Firebase.",
   "Artificial-Intelligence": "Interactive AI course portal — 16 lectures, assessments and AI labs.",
   "Mobile-Application-Development": "Complete Android course in Kotlin with quizzes and flashcards.",
