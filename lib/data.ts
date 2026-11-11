@@ -145,6 +145,14 @@ export const moreSoftware = [
 
 export const teaching = [
   {
+    title: "Applications of ICT",
+    text: "30 animated sessions for BS Psychology, plus midterm and final exam preparation — computer basics, productivity tools, ICT in education, health and finance, digital citizenship and ethics — with a Watch mode that plays each lecture like a video.",
+    url: "https://applications-of-ict.vercel.app/",
+    repo: "https://github.com/tahir8203/Applications-of-ICT",
+    image: "/shots/ict.jpg",
+    tags: ["30 sessions", "80 animations", "Watch mode"],
+  },
+  {
     title: "Compiler Construction",
     text: "Lectures 1–3 (2026 edition) built on Bloom's Taxonomy — Head, Heart & Hand outcomes and activities in every lecture — with a live tokenizer, parser and compiler demo, CPU simulator, real GCC/Rust/Python errors, quizzes and flashcards.",
     url: "https://compiler-construction-phi.vercel.app/",
@@ -301,6 +309,7 @@ export type Repo = { name: string; description: string | null; language: string 
 
 // Used if the GitHub API is unreachable at build time. Public repositories only.
 export const fallbackRepos: Repo[] = [
+  ["Applications-of-ICT", "Animated ICT course for BS Psychology", "HTML", "https://applications-of-ict.vercel.app"],
   ["ucp-university-lms-portal", "University LMS on Firebase", "JavaScript", "https://ucp-university-lms-portal.vercel.app"],
   ["Artificial-Intelligence", "Interactive AI learning portal", "HTML", "https://artificial-intelligence-lake.vercel.app"],
   ["Mobile-Application-Development", "Complete Android course", "HTML", "https://mobile-application-development-five.vercel.app"],
