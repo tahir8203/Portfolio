@@ -20,7 +20,9 @@ function Core({ calm, pal }: { calm: boolean; pal: Palette }) {
 
   useFrame((_, dt) => {
     if (!group.current || !shell.current) return;
-    shell.current.rotation.y += dt * 0.12;
+    // the shell spins faster as the visitor scrolls away from the hero
+    const scrolled = Math.min(1, window.scrollY / Math.max(1, window.innerHeight));
+    shell.current.rotation.y += dt * (0.12 + scrolled * 1.4);
     shell.current.rotation.x += dt * 0.05;
     // ease toward the pointer for a subtle parallax tilt
     group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, pointer.x * 0.45, 3, dt);
@@ -52,6 +54,15 @@ function Core({ calm, pal }: { calm: boolean; pal: Palette }) {
   );
 }
 
+function Satellite({ at, color }: { at: [number, number, number]; color: string }) {
+  return (
+    <mesh position={at}>
+      <sphereGeometry args={[0.07, 20, 20]} />
+      <meshBasicMaterial color={color} />
+    </mesh>
+  );
+}
+
 function Rings({ calm, pal }: { calm: boolean; pal: Palette }) {
   const a = useRef<THREE.Mesh>(null);
   const b = useRef<THREE.Mesh>(null);
@@ -65,10 +76,15 @@ function Rings({ calm, pal }: { calm: boolean; pal: Palette }) {
       <mesh ref={a} rotation={[Math.PI / 2.4, 0.2, 0]}>
         <torusGeometry args={[2.35, 0.012, 16, 160]} />
         <meshBasicMaterial color={pal.ringA} transparent opacity={0.7} />
+        {/* satellites ride the ring: one per field (teaching, software, AI, administration) */}
+        <Satellite at={[2.35, 0, 0]} color={pal.wire} />
+        <Satellite at={[-2.35, 0, 0]} color={pal.ringA} />
       </mesh>
       <mesh ref={b} rotation={[Math.PI / 1.8, -0.5, 0.4]}>
         <torusGeometry args={[2.85, 0.008, 16, 160]} />
         <meshBasicMaterial color={pal.ringB} transparent opacity={0.5} />
+        <Satellite at={[0, 2.85, 0]} color={pal.ringB} />
+        <Satellite at={[0, -2.85, 0]} color="#ec4899" />
       </mesh>
     </>
   );

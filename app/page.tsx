@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import Motion from "@/components/Motion";
-import { Loader, Nav, WhatsAppFloat } from "@/components/Chrome";
-import { About, GitHub, Journey, Leadership, Skills, Teaching, Work } from "@/components/Sections";
+import { Aurora, Loader, Nav, WhatsAppFloat } from "@/components/Chrome";
+import { About, GitHub, Journey, KineticBand, Leadership, Skills, Teaching, Work } from "@/components/Sections";
 import { Contact, Footer } from "@/components/Contact";
 import { fallbackRepos, type Repo } from "@/lib/data";
 
@@ -64,11 +64,13 @@ export default async function Page() {
       >
         Skip to content
       </a>
+      <Aurora />
       <Loader />
       <Nav />
       <main id="main">
         <Hero />
         <About />
+        <KineticBand />
         <Work />
         <Teaching />
         <Leadership />
