@@ -154,11 +154,11 @@ export const teaching = [
   },
   {
     title: "Compiler Construction",
-    text: "Lectures 1–3 (2026 edition) built on Bloom's Taxonomy — Head, Heart & Hand outcomes and activities in every lecture — with a live tokenizer, parser and compiler demo, CPU simulator, real GCC/Rust/Python errors, quizzes and flashcards.",
+    text: "Complete 17-week course for BS Computer Science: 30 animated sessions plus midterm and final preparation, from scanners and finite automata to LL(1) parsing, syntax-directed translation, three-address code and backpatching. Every session has Bloom's Taxonomy Head, Heart & Hand outcomes, and there are live lab tools (tokenizer, LL(1) table builder, expression → three-address code).",
     url: "https://compiler-construction-phi.vercel.app/",
     repo: "https://github.com/tahir8203/Compiler-Construction",
     image: "/shots/cc.jpg",
-    tags: ["Bloom’s Taxonomy", "Head · Heart · Hand", "Live demos"],
+    tags: ["30 sessions", "72 animations", "Bloom’s Taxonomy"],
   },
   {
     title: "Artificial Intelligence",
