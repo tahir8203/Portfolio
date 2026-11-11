@@ -33,7 +33,7 @@ const DESCRIPTIONS: Record<string, string> = {
   "University-LMS-Portal": "Teachers manage quizzes, assignments and lectures; students respond.",
   "Quiz-Portal": "Web-based quiz portal for classroom assessment.",
   "Computer-Networks": "Computer Networks course material.",
-  "Compiler-Construction": "Interactive Compiler Construction course — lectures 1–3 with live demos.",
+  "Compiler-Construction": "Compiler Construction lectures 1–3 built on Bloom’s Taxonomy (Head, Heart, Hand).",
 };
 
 /** Fetched once at build time from the public GitHub API — only public repositories are ever returned. */
